@@ -1,0 +1,47 @@
+﻿<Window x:Class="Modelowanie.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:Modelowanie"
+    Title="Modelowanie"  Height="586" Width="942" WindowStyle="SingleBorderWindow" Visibility="Visible" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="647*" />
+            <ColumnDefinition Width="273*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="265*" />
+            <RowDefinition Height="283*" />
+        </Grid.RowDefinitions>
+
+
+        <Menu Width="Auto" Name="menu" Background="#FFA9D1F4" Margin="0,0,0,247" Grid.ColumnSpan="2" >
+            <MenuItem Header="Menu">
+                <MenuItem Header="Nowy"/>
+                <MenuItem Header="Zapisz"  />
+                <MenuItem Header="Zamknij" />
+            </MenuItem>
+        </Menu>
+        <StackPanel Margin="0,15,0,227" Orientation="Horizontal" Height="20" Background="#F4A9D1F4"  Grid.ColumnSpan="2">
+            <Button HorizontalAlignment="Right" Name="btnAdd" Width="75"  Grid.RowSpan="2" Grid.Column="1">Clear</Button>
+            <Button Height="20" HorizontalAlignment="Right" Margin="10,0,10,0"  VerticalAlignment="Bottom" Width="75"  Grid.Column="1">Przerysuj</Button>
+            <ComboBox Height="20" Name="cbfSize" Width="50"  Margin="10,0,10,0" HorizontalAlignment="Right" SelectionChanged="ehcbfSizeChanged"  VerticalAlignment="Bottom" Grid.Column="1"  />
+
+            <ComboBox Height="20" x:Name="cbFonts" Width="120"  Margin="0,0,10,0" HorizontalAlignment="Right" SelectionChanged="ehCBFontsChanged"  VerticalAlignment="Bottom"  />
+            <Button Height="20" Width="99"   HorizontalAlignment="Right" Margin="0,0,10,0" VerticalAlignment="Top" Click="Button_Click" Name="btnAddSek" Grid.Column="1">Dodaj op. sek.</Button>
+            <Button Height="20" HorizontalAlignment="Right" Margin="0,0,10,0" Name="btnAddEl" VerticalAlignment="Top" Width="96" Grid.Column="1">Dodaj op. ele.</Button>
+            <Button Height="20" Width="99"   HorizontalAlignment="Right" Margin="100,0,10,0" VerticalAlignment="Top" Name="load" Grid.Column="1">Wczytaj</Button>
+            <Button Height="20" HorizontalAlignment="Right" Margin="0,0,10,0" x:Name="save" VerticalAlignment="Top" Width="96" Content="zapisz"/>
+        </StackPanel>
+
+        <DockPanel Name="pic"  Grid.RowSpan="2" ClipToBounds="True" Margin="0,44,0,0" Grid.ColumnSpan="2">
+            <ScrollBar  Name="HorScroll" Orientation="Horizontal" DockPanel.Dock="Bottom"   SmallChange="1" Width="936" HorizontalAlignment="Left" />
+            <ScrollBar  Name="VerScroll" DockPanel.Dock="Right"  Minimum="0" Margin="0,19,0,0" />
+
+            <Border ClipToBounds="True">
+                <local:UCanvas x:Name="cDrawing"  Background="White" ClipToBounds="True" Grid.RowSpan="2"></local:UCanvas>
+            </Border>
+        </DockPanel>
+
+    </Grid>
+
+</Window>
