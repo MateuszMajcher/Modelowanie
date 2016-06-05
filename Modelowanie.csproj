@@ -55,12 +55,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddElem.xaml.cs">
+      <DependentUpon>AddElem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AddUniterm.xaml.cs">
       <DependentUpon>AddUniterm.xaml</DependentUpon>
     </Compile>
     <Compile Include="Database.cs" />
+    <Compile Include="Save.xaml.cs">
+      <DependentUpon>Save.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UCanvas.cs" />
     <Compile Include="UDrawing.cs" />
+    <Page Include="AddElem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AddUniterm.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -77,6 +87,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Save.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

@@ -103,12 +103,203 @@ namespace Modelowanie
 
             UDrawing.sOp = au.rbSr.IsChecked == true ? " ; " : " , ";
 
-            //btnRedraw_Click(sender, e);
+            btnRedraw_Click(sender, e);
 
             modified = true;
 
         }
 
 
+        private void btnAddEl_Click(object sender, RoutedEventArgs e)
+        {
+            AddElem ae = new AddElem();
+
+            ae.ShowDialog();
+            if (ae.tbA.Text.Length > 250 || ae.tbB.Text.Length > 250 || ae.tbC.Text.Length > 250)
+            {
+                MessageBox.Show("Zbyt długi tekst!\n Maksymalna długość tekstu to 250 znaków!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            UDrawing.eA = ae.tbA.Text;
+            UDrawing.eB = ae.tbB.Text;
+            UDrawing.eC = ae.tbC.Text;
+
+           btnRedraw_Click(sender, e);
+            modified = true;
+        }
+
+
+        private void btnRedraw_Click(object sender, RoutedEventArgs e)
+        {
+            cDrawing.ClearAll();
+
+            DrawingVisual dv = new DrawingVisual();
+            using (DrawingContext dc = dv.RenderOpen())
+            {
+                UDrawing md = new UDrawing(dc);
+
+                md.Redraw();
+                dc.Close();
+            }
+            cDrawing.AddElement(dv);
+
+        }
+
+        private void btnSpare_Click(object sender, RoutedEventArgs e)
+        {
+
+            char operacja = 'X';
+            switch (MessageBox.Show("Co zamienić?\n [Tak]==A, [Nie]==B", "Zamień", MessageBoxButton.YesNoCancel, MessageBoxImage.Question))
+            {
+                case MessageBoxResult.Yes:
+                    operacja = 'A';
+                    break;
+                case MessageBoxResult.No:
+                    operacja = 'B';
+                    break;
+                case MessageBoxResult.Cancel: return;
+            }
+
+            cDrawing.ClearAll();
+        }
+
+        private void ehNowyClick(object sender, RoutedEventArgs e)
+        {
+            UDrawing.ClearAll();
+            cDrawing.ClearAll();
+            nowy = true;
+            modified = false;
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+           /* Save save = new Save();
+            save.ShowDialog();
+
+            try
+            {
+
+                string sql = "insert into uniterms values('{0}','{1}','{2}','{3}','{4}','{5}','{6}',''{7}','{8}',{9},'{10}','{11}');";
+                if (nowy)
+                {
+                    sql = "insert into uniterms values('" + save.tbName.Text + "','" + save.tbDescription.Text + "','" +
+                        UDrawing.sA + "','" + UDrawing.sB + "','" + UDrawing.sOp + "','" + UDrawing.eA + "','" +
+                        UDrawing.eB + "','" + UDrawing.eC + "'," + UDrawing.fontsize + ",'" + UDrawing.fontFamily + "','" + UDrawing.oper + "');";
+                }
+                else
+                {
+                    sql = "UPDATE uniterms SET " +
+      "description = '" + save.tbDescription.Text +
+      "',sA = '" + UDrawing.sA +
+      "',sB ='" + UDrawing.sB +
+      "',sOp ='" + UDrawing.sOp +
+      "',eA = '" + UDrawing.eA +
+      "',eB = '" + UDrawing.eB +
+      "',eC = '" + UDrawing.eC +
+      "',fontSize =" + UDrawing.fontsize +
+      ",fontFamily = '" + UDrawing.fontFamily +
+      "',switched ='" + UDrawing.oper +
+        "' WHERE name ='" + save.tbName.Text + "';";
+                }
+
+                db.RunQuery(sql);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Wystąpił błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            Window_Loaded(sender, e);*/
+
+           // lbUniterms.SelectionChanged -= ehlbUNitermsSelectionChanged;
+            //lbUniterms.SelectedValue = tbName.Text;
+            //lbUniterms.SelectionChanged += ehlbUNitermsSelectionChanged;
+        }
+
+        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+
+        private bool CheckSave()
+        {
+
+            if (!modified)
+                return true;
+            else
+            {
+                switch (MessageBox.Show("Chcesz zapisać?", "Zapis", MessageBoxButton.YesNoCancel, MessageBoxImage.Question))
+                {
+                    case MessageBoxResult.Yes:
+                        {
+                            MenuItem_Click_1(null, null); //02.03.2014
+                            modified = false;
+                            nowy = false;
+                            return true;
+                        }
+                    case MessageBoxResult.No:
+                        {
+                            modified = false;
+                            nowy = false;
+                            return true;
+                        }
+                    case MessageBoxResult.Cancel: return false;
+                    default: return false;
+                }
+            }
+
+        }
+
+
+
+        private void ehlbUNitermsSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+           /* if (CheckSave())
+            {
+                DataRow dr;
+                try
+                {
+                    dr = db.CreateDataRow(String.Format("select * from uniterms where name = '{0}';", lbUniterms.SelectedItem.ToString()));
+
+
+                    UDrawing.eA = (string)dr["eA"];
+                    UDrawing.eB = (string)dr["eB"];
+                    UDrawing.eC = (string)dr["eC"];
+
+                    UDrawing.sA = (string)dr["sA"];
+                    UDrawing.sB = (string)dr["sB"];
+                    UDrawing.sOp = (string)dr["sOp"];
+
+                    UDrawing.fontFamily = new FontFamily((string)dr["fontFamily"]);
+                    UDrawing.fontsize = (Int16)dr["fontSize"];
+                    UDrawing.oper = ((string)dr["switched"])[0]; ;
+
+                    //tbName.Text = (string)dr["name"];
+                   // tbDescription.Text = (string)dr["description"];
+
+                    cbFonts.SelectedValue = UDrawing.fontFamily;
+                    cbfSize.SelectedValue = (int)UDrawing.fontsize;
+
+                    cDrawing.ClearAll();
+
+
+
+                    DrawingVisual dv = new DrawingVisual();
+                    cDrawing.Width = 5000;
+                    cDrawing.Height = 5000;
+
+                    btnRedraw_Click(sender, e);
+                    nowy = false;
+                    modified = false;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+
+            }*/
+        }
     }
 }
