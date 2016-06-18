@@ -147,6 +147,9 @@ namespace Modelowanie
 
         private void DrawBezier(Point p0, int length)
         {
+
+            Console.WriteLine("point " + le);
+
             Point start = p0;
             Point p1 = new Point(), p2 = new Point(), p3 = new Point();
 

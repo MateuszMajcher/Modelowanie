@@ -14,32 +14,33 @@
         </Grid.RowDefinitions>
 
 
-        <Menu Width="Auto" Name="menu" Background="#FFA9D1F4" Margin="0,0,0,247" Grid.ColumnSpan="2" >
+        <Menu Width="Auto" Name="menu" Background="#FFA9D1F4" Margin="0,0,0,239" Grid.ColumnSpan="2" >
             <MenuItem Header="Menu">
                 <MenuItem Header="Nowy" Click="ehNowyClick" />
                 <MenuItem Header="Zapisz" Click="MenuItem_Click" />
                 <MenuItem Header="Zamknij" Click="MenuItem_Click_1"/>
             </MenuItem>
         </Menu>
-        <StackPanel Margin="0,15,0,227" Orientation="Horizontal" Height="20" Background="#F4A9D1F4"  Grid.ColumnSpan="2">
-            <Button HorizontalAlignment="Right" Name="btnAdd" Width="75"  Grid.RowSpan="2" Grid.Column="1" Click="btnClear_Click">Clear</Button>
-            <Button Height="20" HorizontalAlignment="Right" Margin="10,0,10,0"  VerticalAlignment="Bottom" Width="75" Click="btnRedraw_Click" Grid.Column="1">Przerysuj</Button>
-            <ComboBox Height="20" Name="cbfSize" Width="50"  Margin="10,0,10,0" HorizontalAlignment="Right" SelectionChanged="ehcbfSizeChanged"  VerticalAlignment="Bottom" Grid.Column="1"  />
+        <StackPanel Margin="0,0,0,217" Orientation="Horizontal" Background="#F4A9D1F4"  Grid.ColumnSpan="2" VerticalAlignment="Bottom">
+            <Button HorizontalAlignment="Right" Name="btnAdd" Width="75"  Grid.RowSpan="2" Grid.Column="1" Click="btnClear_Click" Height="20" Margin="5,0,0,0">Clear</Button>
+            <Button Height="20" HorizontalAlignment="Right" Margin="10,0"   Width="75" Click="btnRedraw_Click" Grid.Column="1">Przerysuj</Button>
+            <ComboBox Height="20" Name="cbfSize" Width="50"  Margin="10,0,10,3" HorizontalAlignment="Right" SelectionChanged="ehcbfSizeChanged"   Grid.Column="1" Panel.ZIndex="-4"  />
 
-            <ComboBox Height="20" x:Name="cbFonts" Width="120"  Margin="0,0,10,0" HorizontalAlignment="Right" SelectionChanged="ehCBFontsChanged"  VerticalAlignment="Bottom"  />
-            <Button Height="20" Width="99"   HorizontalAlignment="Right" Margin="0,0,10,0" VerticalAlignment="Top" Click="btnSpare_Click" Name="btnSpare" Grid.Column="1" Background="Bisque">Zamien</Button>
-            <Button Height="20" Width="99"   HorizontalAlignment="Right" Margin="0,0,10,0" VerticalAlignment="Top" Click="Button_Click" Name="btnAddSek" Grid.Column="1">Dodaj op. sek.</Button>
-            <Button Height="20" HorizontalAlignment="Right" Margin="0,0,10,0" Name="btnAddEl" VerticalAlignment="Top" Click="btnAddEl_Click" Width="96" Grid.Column="1">Dodaj op. ele.</Button>
-            <Button Height="20" Width="99"   HorizontalAlignment="Right" Margin="30,0,10,0" VerticalAlignment="Top" Name="load" Grid.Column="1">Wczytaj</Button>
-            <Button Height="20" HorizontalAlignment="Right" Margin="0,0,10,0" x:Name="save" VerticalAlignment="Top" Width="96" Click="MenuItem_Click" Content="zapisz"/>
+            <ComboBox Height="20" x:Name="cbFonts" Width="120"  Margin="0,0,10,3" HorizontalAlignment="Right" SelectionChanged="ehCBFontsChanged"   />
+            <Button Height="20" Width="99"   HorizontalAlignment="Right" Margin="0,0,10,3"  Click="btnSpare_Click" Name="btnSpare" Grid.Column="1" Background="Bisque">Zamien</Button>
+            <Button Height="20" Width="99"   HorizontalAlignment="Right" Margin="0,0,10,3"  Click="Button_Click" Name="btnAddSek" Grid.Column="1">Dodaj op. sek.</Button>
+            <Button Height="20" HorizontalAlignment="Right" Margin="0,0,10,3" Name="btnAddEl"  Click="btnAddEl_Click" Width="96" Grid.Column="1">Dodaj op. ele.</Button>
+            <Button Height="20" Width="62"   HorizontalAlignment="Right" Margin="30,0,10,3" Click="Load_Click" Name="load" Content="Wczytaj"/>
+            <Button Height="20" Width="62"   HorizontalAlignment="Right" Margin="5,0,10,3"  Click="MenuItem_Click"  Name="save" Grid.Column="1">Zapisz</Button>
+           
+
         </StackPanel>
-
         <DockPanel Name="pic"  Grid.RowSpan="2" ClipToBounds="True" Margin="0,44,0,0" Grid.ColumnSpan="2">
-            <ScrollBar  Name="HorScroll" Orientation="Horizontal" DockPanel.Dock="Bottom"   SmallChange="1" Width="936" HorizontalAlignment="Left" />
-            <ScrollBar  Name="VerScroll" DockPanel.Dock="Right"  Minimum="0" Margin="0,19,0,0" />
+            <ScrollBar  Name="HorScroll" Orientation="Horizontal" DockPanel.Dock="Bottom"   SmallChange="1" Width="936" HorizontalAlignment="Left" ValueChanged="HorScroll_ValueChanged" />
+            <ScrollBar  Name="VerScroll" DockPanel.Dock="Right"  Minimum="0" Margin="0,19,0,0" ValueChanged="HorScroll_ValueChanged"/>
 
-            <Border ClipToBounds="True">
-                <local:UCanvas x:Name="cDrawing"  Background="White" ClipToBounds="True" Grid.RowSpan="2"></local:UCanvas>
+            <Border ClipToBounds="True" Margin="0,19,0,0">
+                <local:UCanvas x:Name="cDrawing"  Background="White" ClipToBounds="True" Grid.RowSpan="2" Margin="0,-10,0,0"></local:UCanvas>
             </Border>
         </DockPanel>
 

@@ -19,6 +19,8 @@ namespace Modelowanie
     /// </summary>
     public partial class Save : Window
     {
+        public bool a = false;
+
         public Save()
         {
             InitializeComponent();
@@ -26,7 +28,10 @@ namespace Modelowanie
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
+            a = true;
             Close();
         }
+
+      
     }
 }

@@ -1,0 +1,13 @@
+﻿<Window x:Class="Modelowanie.Load"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Modelowanie"
+        mc:Ignorable="d"
+        Title="Load" Height="300" Width="300"  WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+    <Grid>
+        <ListBox HorizontalAlignment="Left" Name="lbUniterms" Width="203" BorderThickness="3" SelectionChanged="lbUniterms_SelectionChanged" />
+        <Button Height="23" Margin="0,115,0,0" Name="btnLoad" VerticalAlignment="Top" HorizontalAlignment="Right" Width="75" Click="btnSave_Click" RenderTransformOrigin="0.514,0.648" IsEnabled="False">Wczytaj</Button>
+    </Grid>
+</Window>
