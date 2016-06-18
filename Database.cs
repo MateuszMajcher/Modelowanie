@@ -12,7 +12,7 @@ namespace Modelowanie
 {
     class Database
     {
-        public static string connectionString = "Data Source=DESKTOP-6NU2EAE;Initial Catalog=uniterm;Integrated security=true";
+        public static string connectionString = "Data Source=DESKTOP-6NU2EAE;Initial Catalog=uniterm;Password=modelowanie; User Id=modelowanie";
         private SqlConnection conString;
 
         public Database() {
@@ -125,6 +125,7 @@ namespace Modelowanie
 
         public void RunQuery(string query)
         {
+            Console.WriteLine(query);
             this.Connect();
 
             if (this.ConnectionString.State == ConnectionState.Open)

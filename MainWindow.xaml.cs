@@ -31,8 +31,9 @@ namespace Modelowanie
         }
 
         Database db;
-        bool nowy = false, modified = false;
+        bool nowy = true, modified = false;
 
+        /*clear*/
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             cDrawing.ClearAll();
@@ -52,11 +53,11 @@ namespace Modelowanie
                 cbfSize.Items.Add(i);
             }
             cbfSize.SelectedIndex = 4;
+            db = new Database();
 
-          
         }
 
-
+        /*zmina czczionki*/
         private void ehCBFontsChanged(object sender, SelectionChangedEventArgs e)
         {
             try
@@ -71,7 +72,7 @@ namespace Modelowanie
             }
 
         }
-
+        /*zmiana rozmiaru*/
         private void ehcbfSizeChanged(object sender, SelectionChangedEventArgs e)
         {
             try
@@ -85,7 +86,7 @@ namespace Modelowanie
             }
         }
 
-
+        /*dodanie sekwencio*/
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             AddUniterm au = new AddUniterm();
@@ -115,6 +116,7 @@ namespace Modelowanie
             AddElem ae = new AddElem();
 
             ae.ShowDialog();
+
             if (ae.tbA.Text.Length > 250 || ae.tbB.Text.Length > 250 || ae.tbC.Text.Length > 250)
             {
                 MessageBox.Show("Zbyt długi tekst!\n Maksymalna długość tekstu to 250 znaków!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -161,6 +163,9 @@ namespace Modelowanie
             }
 
             cDrawing.ClearAll();
+            UDrawing.oper = operacja;
+            btnRedraw_Click(sender, e);
+            modified = true;
         }
 
         private void ehNowyClick(object sender, RoutedEventArgs e)
@@ -173,9 +178,10 @@ namespace Modelowanie
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-           /* Save save = new Save();
+            Save save = new Save();
             save.ShowDialog();
-
+            Console.WriteLine(save.tbName.Text);
+            
             try
             {
 
@@ -201,7 +207,6 @@ namespace Modelowanie
       "',switched ='" + UDrawing.oper +
         "' WHERE name ='" + save.tbName.Text + "';";
                 }
-
                 db.RunQuery(sql);
 
             }
@@ -209,17 +214,22 @@ namespace Modelowanie
             {
                 MessageBox.Show(ex.Message, "Wystąpił błąd", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
-            Window_Loaded(sender, e);*/
-
-           // lbUniterms.SelectionChanged -= ehlbUNitermsSelectionChanged;
-            //lbUniterms.SelectedValue = tbName.Text;
-            //lbUniterms.SelectionChanged += ehlbUNitermsSelectionChanged;
+           
+Window_Loaded(sender, e);
+           
+            // lbUniterms.SelectionChanged -= ehlbUNitermsSelectionChanged;
+            // lbUniterms.SelectedValue = tbName.Text;
+            // lbUniterms.SelectionChanged += ehlbUNitermsSelectionChanged;
         }
 
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void btnClear_Click(object sender, RoutedEventArgs e)
+        {
+            cDrawing.ClearAll();
         }
 
 

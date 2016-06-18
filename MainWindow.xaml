@@ -22,7 +22,7 @@
             </MenuItem>
         </Menu>
         <StackPanel Margin="0,15,0,227" Orientation="Horizontal" Height="20" Background="#F4A9D1F4"  Grid.ColumnSpan="2">
-            <Button HorizontalAlignment="Right" Name="btnAdd" Width="75"  Grid.RowSpan="2" Grid.Column="1">Clear</Button>
+            <Button HorizontalAlignment="Right" Name="btnAdd" Width="75"  Grid.RowSpan="2" Grid.Column="1" Click="btnClear_Click">Clear</Button>
             <Button Height="20" HorizontalAlignment="Right" Margin="10,0,10,0"  VerticalAlignment="Bottom" Width="75" Click="btnRedraw_Click" Grid.Column="1">Przerysuj</Button>
             <ComboBox Height="20" Name="cbfSize" Width="50"  Margin="10,0,10,0" HorizontalAlignment="Right" SelectionChanged="ehcbfSizeChanged"  VerticalAlignment="Bottom" Grid.Column="1"  />
 
@@ -31,7 +31,7 @@
             <Button Height="20" Width="99"   HorizontalAlignment="Right" Margin="0,0,10,0" VerticalAlignment="Top" Click="Button_Click" Name="btnAddSek" Grid.Column="1">Dodaj op. sek.</Button>
             <Button Height="20" HorizontalAlignment="Right" Margin="0,0,10,0" Name="btnAddEl" VerticalAlignment="Top" Click="btnAddEl_Click" Width="96" Grid.Column="1">Dodaj op. ele.</Button>
             <Button Height="20" Width="99"   HorizontalAlignment="Right" Margin="30,0,10,0" VerticalAlignment="Top" Name="load" Grid.Column="1">Wczytaj</Button>
-            <Button Height="20" HorizontalAlignment="Right" Margin="0,0,10,0" x:Name="save" VerticalAlignment="Top" Width="96" Content="zapisz"/>
+            <Button Height="20" HorizontalAlignment="Right" Margin="0,0,10,0" x:Name="save" VerticalAlignment="Top" Width="96" Click="MenuItem_Click" Content="zapisz"/>
         </StackPanel>
 
         <DockPanel Name="pic"  Grid.RowSpan="2" ClipToBounds="True" Margin="0,44,0,0" Grid.ColumnSpan="2">
