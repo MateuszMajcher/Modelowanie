@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         Title="AddElem" Height="170" Width="308" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Grid Width="291" Height="141">
-
-        <Label Height="28" HorizontalAlignment="Left" Margin="10,12,0,0" Name="label1" VerticalAlignment="Top" Width="74">Wyrażenie A</Label>
-        <Label HorizontalAlignment="Left" Margin="10,39,0,65" Name="label2" Width="74">Wyrażenie B</Label>
-        <TextBox Height="23" Margin="100,12,11,0" Name="tbA" VerticalAlignment="Top" />
-        <TextBox Height="23" Margin="100,41,11,0" Name="tbB" VerticalAlignment="Top" />
-        <Button Height="23" Margin="0,107,11,0" Name="btnAdd" VerticalAlignment="Top" Grid.Column="1" HorizontalAlignment="Right" Width="75" Click="btnAdd_Click">Dodaj</Button>
-        <TextBox Height="23" Margin="100,0,11,39" Name="tbC" VerticalAlignment="Bottom" />
-        <Label Height="28" HorizontalAlignment="Left" Margin="10,0,0,34" Name="label3" VerticalAlignment="Bottom" Width="68">Wyrażenie C</Label>
+        <Label Height="28" Margin="9,15,0,0" Name="label1" VerticalAlignment="Top" HorizontalAlignment="Left" Width="84">Wyrażenie A</Label>
+        <Label Height="28" Margin="9,41,0,0" Name="label2" VerticalAlignment="Top" HorizontalAlignment="Left" Width="84">Wyrażenie B</Label>
+        <Label Height="28" Margin="28,72,0,0" Name="label3" VerticalAlignment="Top" HorizontalAlignment="Left" Width="74">Operacja</Label>
+        <TextBox Height="23" Margin="116,15,42,0" Name="tbA" VerticalAlignment="Top" />
+        <TextBox Height="23" Margin="116,46,42,0" Name="tbB" VerticalAlignment="Top" />
+        <RadioButton Height="16" Margin="100,0,0,27" Name="rbSr" IsChecked="True" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="31">;</RadioButton>
+        <RadioButton Margin="100,0,0,8" Name="rbPrz" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="31">,</RadioButton>
+        <Button Height="23" HorizontalAlignment="Right" Margin="0,0,11,8" Name="btnAdd" VerticalAlignment="Bottom" Width="75" Click="btnAdd_Click">Dodaj</Button>
     </Grid>
 </Window>

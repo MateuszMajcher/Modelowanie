@@ -13,6 +13,7 @@ namespace Modelowanie
     class Database
     {
         public static string connectionString = "Data Source=DESKTOP-6NU2EAE;Initial Catalog=uniterm;Password=modelowanie; User Id=modelowanie";
+        //public static string connectionString = "Data Source=DESKTOP-6NU2EAE;Initial Catalog=baza_test;";
         private SqlConnection conString;
 
         public Database() {

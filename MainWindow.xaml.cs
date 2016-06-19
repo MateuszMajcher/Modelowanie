@@ -90,6 +90,11 @@ namespace Modelowanie
         /*dodanie sekwencio*/
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            UDrawing.ClearAll();
+            cDrawing.ClearAll();
+            nowy = true;
+            modified = false;
+
             AddUniterm au = new AddUniterm();
 
             au.ShowDialog();
@@ -102,13 +107,14 @@ namespace Modelowanie
 
             UDrawing.sA = au.tbA.Text;
             UDrawing.sB = au.tbB.Text;
-            Console.WriteLine(UDrawing.sA.Length);
+
             UDrawing.sOp = au.rbSr.IsChecked == true ? " ; " : " , ";
+
 
             btnRedraw_Click(sender, e);
 
             modified = true;
-            
+
         }
 
 
@@ -118,15 +124,15 @@ namespace Modelowanie
 
             ae.ShowDialog();
 
-            if (ae.tbA.Text.Length > 250 || ae.tbB.Text.Length > 250 || ae.tbC.Text.Length > 250)
+            if (ae.tbA.Text.Length > 250 || ae.tbB.Text.Length > 250)
             {
                 MessageBox.Show("Zbyt długi tekst!\n Maksymalna długość tekstu to 250 znaków!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             UDrawing.eA = ae.tbA.Text;
             UDrawing.eB = ae.tbB.Text;
-            UDrawing.eC = ae.tbC.Text;
-            
+            UDrawing.eC = ae.rbSr.IsChecked == true ? " ; " : " , ";
+
             btnRedraw_Click(sender, e);
             modified = true;
         }
@@ -287,7 +293,7 @@ namespace Modelowanie
                         UDrawing.eA = (string)dr["eA"];
                         UDrawing.eB = (string)dr["eB"];
                         UDrawing.eC = (string)dr["eC"];
-                       
+                        Console.WriteLine(UDrawing.eA.Length);
                         UDrawing.sA = (string)dr["sA"];
                         UDrawing.sB = (string)dr["sB"];
                         UDrawing.sOp = (string)dr["sOp"];

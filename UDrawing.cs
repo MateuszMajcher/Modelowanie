@@ -39,6 +39,8 @@ namespace Modelowanie
         public static char oper = ' ';
 
         public DrawingContext dc;
+
+        string textpion = "OPERACJA SEKWENCJONOWANIA PIONOWEGO:";
         #endregion
 
         #region Initalizers
@@ -51,7 +53,6 @@ namespace Modelowanie
         #endregion
 
         #region Public Methods
-
         public void Redraw()
         {
             if (oper != ' ')
@@ -62,11 +63,11 @@ namespace Modelowanie
             {
                 if (sA != "")
                 {
-                    DrawSek(new Point(30, fontsize + 30));
+                    DrawSekPion(new Point(30, fontsize + 30));
                 }
                 if (eA != "")
                 {
-                    DrawElim(new Point(30, fontsize * 3 + 30));
+                    DrawSekPoziom(new Point(30, fontsize * 3 + 30));
                 }
             }
         }
@@ -78,96 +79,117 @@ namespace Modelowanie
             oper = ' ';
         }
 
-        public void DrawSek(Point pt)
+        public void DrawSekPion(Point pt)
         {
             if (sA == "" || sOp == "") return;
-            int len = GetTextLength(sA + sOp + sB);
+            int len = GetTextHeight(sA) * 3 + 10;
 
-            DrawText(pt, sA + sOp + sB);
-            DrawBezier(new Point(pt.X, pt.Y - 1), len);
+
+           // DrawText(pt, textpion);
+            DrawText(pt, "\n\n" + sA);
+            DrawText(pt, "\n\n\n" + sOp);
+            DrawText(pt, "\n\n\n\n" + sB);
+            DrawBezierPion(new Point(pt.X, pt.Y + (GetTextHeight(textpion) * 2) - 1), len);
+            
         }
 
-        public void DrawElim(Point pt)
+        public void DrawSekPoziom(Point pt)
         {
+
             if (eA == "" || eB == "" || eC == "") return;
 
             Point p2 = new Point(pt.X + 2, pt.Y);
-            string text = eA + Environment.NewLine.ToString() + ";" + Environment.NewLine.ToString() +
-                eB + Environment.NewLine.ToString() +
-                ";" + Environment.NewLine.ToString() + eC;
-
-            double l = GetTextHeight(text) + 2;
-
+            string text = Environment.NewLine.ToString() + Environment.NewLine.ToString() + Environment.NewLine.ToString() + Environment.NewLine.ToString() + Environment.NewLine.ToString() + Environment.NewLine.ToString() + Environment.NewLine.ToString() + Environment.NewLine.ToString() + eA + eC + eB;
+            string text1 = Environment.NewLine.ToString() + Environment.NewLine.ToString() + Environment.NewLine.ToString() + Environment.NewLine.ToString() + Environment.NewLine.ToString() + Environment.NewLine.ToString() + Environment.NewLine.ToString() + eA + eC + eB;
+          string textpoz = "OPERACJA SEKWENCJONOWANIA POZIOMEGO:";
+           DrawText(new Point(pt.X, pt.Y + (GetTextHeight(textpion) * 2) + (GetTextHeight(eA)) * 4), textpoz);
+            int l = GetTextLength(text) + 7;
+            int l1 = GetTextHeight(text1);
             DrawText(p2, text);
-            DrawVert(pt, (int)l);
+            DrawBezierPoziom(new Point(pt.X, pt.Y + l1), l);
         }
 
         public void DrawSwitched(Point pt)
         {
-            if (sA == "" || sOp == "" || eA == "" || eB == "" || eC == "") return;
+            if (sA == "" || sOp == "" || eC == "" || eA == "" || eB == "" || eC == "") return;
 
 
-            string textElim = eA + Environment.NewLine.ToString() + ";" + Environment.NewLine.ToString() +
-                eB + Environment.NewLine.ToString() +
-                ";" + Environment.NewLine.ToString() + eC;
+            string text = sOp + Environment.NewLine.ToString() + sB;
+            string text1 = eA + eC + eB;
+            string text2 = sA + Environment.NewLine.ToString() + sOp;
 
-            int length = GetTextLength(textElim);
-
-            sOp = " " + sOp + " ";
+            int length = GetTextHeight(text);
+            int length1 = GetTextLength(eA + eB + eC) + 7;
+            int length2 = GetTextHeight(text2);
+            int length3 = GetTextHeight(sB);
 
             if (oper == 'A')
             {
-                DrawText(new Point(pt.X + length + (fontsize / 3), pt.Y + 3), sOp + sB);
-                DrawElim(new Point(pt.X + (fontsize / 3), pt.Y + 3));
-                length += GetTextLength(sOp + sB) + (int)(fontsize / 3);
+
+                DrawBezierPion(new Point(pt.X, pt.Y + 5), length * 2 + 5);
+                DrawText(new Point(pt.X + 5, pt.Y + length3 + 20), text);
+                DrawBezierPoziom(new Point(pt.X + 5, pt.Y + 17), length1 + 5);
+                DrawText(new Point(pt.X + 7, pt.Y + 19), text1);
             }
             if (oper == 'B')
             {
-                DrawText(pt, sA + sOp);
-                DrawElim(new Point(pt.X + GetTextLength(sA + sOp) + (fontsize / 3), pt.Y));
-                length += GetTextLength(sA + sOp) + (int)(fontsize / 3);
+                DrawText(new Point(pt.X + 5, pt.Y + 5), text2);
+                DrawBezierPion(new Point(pt.X, pt.Y + 5), length + length2);
+                DrawBezierPoziom(new Point(pt.X + 5, pt.Y + length2 + 15), length1 + 5);
+                DrawText(new Point(pt.X + 7, pt.Y + length2 + 17), text1);
+
             }
-            sOp = Convert.ToString(sOp[1]);
-            DrawBezier(pt, length + 5); //+5 poniewaz Kreska tyle zajmuje
+
 
         }
         #endregion
 
         #region Private Methods
 
-        private void DrawVert(Point pt, int length)
+
+        private void DrawBezierPion(Point p0, int length)
         {
-            dc.DrawLine(pen, pt, new Point { X = pt.X, Y = pt.Y + length });
-            double b = (Math.Sqrt(length) / 2) + 2;
-
-            dc.DrawLine(pen, new Point(pt.X - (b / 2), pt.Y), new Point(pt.X + (b / 2), pt.Y));
-            dc.DrawLine(pen, new Point(pt.X - (b / 2), pt.Y + length), new Point(pt.X + (b / 2), pt.Y + length));
-
-        }
-
-        private void DrawBezier(Point p0, int length)
-        {
-
-            Console.WriteLine("point " + le);
-
             Point start = p0;
             Point p1 = new Point(), p2 = new Point(), p3 = new Point();
 
-            p3.Y = p0.Y;
-            p3.X = p0.X + length;
+            p3.X = p0.X;
+            p3.Y = p0.Y + length;
 
             int b = (int)Math.Sqrt(length) + 2;
 
-            p1.X = p0.X + (int)(length * 0.25);
-            p1.Y = p0.Y - b;
+            p1.Y = p0.Y + (int)(length * 0.25);
+            p1.X = p0.X - b;
 
-            p2.X = p0.X + (int)(length * 0.75);
-            p2.Y = p0.Y - b;
+            p2.Y = p0.Y + (int)(length * 0.75);
+            p2.X = p0.X - b;
 
             foreach (Point pt in GetBezierPoints(p0, p1, p2, p3))
             {
                 dc.DrawLine(pen, start, pt);
                 start = pt;
+            }
+        }
+
+        private void DrawBezierPoziom(Point poz0, int length1)
+        {
+            Point start1 = poz0;
+            Point poz1 = new Point(), poz2 = new Point(), poz3 = new Point();
+
+            poz3.Y = poz0.Y;
+            poz3.X = poz0.X + length1;
+
+            int b = (int)Math.Sqrt(length1) + 2;
+
+            poz1.X = poz0.X + (int)(length1 * 0.25);
+            poz1.Y = poz0.Y - b;
+
+            poz2.X = poz0.X + (int)(length1 * 0.75);
+            poz2.Y = poz0.Y - b;
+
+            foreach (Point pt1 in GetBezierPoints(poz0, poz1, poz2, poz3))
+            {
+                dc.DrawLine(pen, start1, pt1);
+                start1 = pt1;
             }
         }
 
